@@ -1,20 +1,11 @@
-import { Pokemon } from "./../pokemon";
+import { Pokemon } from "../../shared/type/pokemon";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { PokemonService } from "../pokemon.service";
 
 @Component({
     selector: "app-edit-pokemon",
-    template: `
-        <h2 class="center">Editer {{ pokemon?.name }}</h2>
-        <p class="center">
-            <img *ngIf="pokemon" [src]="pokemon.picture" />
-        </p>
-        <app-pokemon-form
-            *ngIf="pokemon"
-            [pokemon]="pokemon"
-        ></app-pokemon-form>
-    `,
+    templateUrl: "edit-pokemon.component.html",
     styles: [],
 })
 export class EditPokemonComponent implements OnInit {
@@ -28,7 +19,9 @@ export class EditPokemonComponent implements OnInit {
     ngOnInit(): void {
         const pokemonId: string | null = this.route.snapshot.paramMap.get("id");
         if (pokemonId) {
-            this.pokemon = this.pokemonService.getPokemonById(+pokemonId);
+            this.pokemonService
+                .getPokemonById(+pokemonId)
+                .subscribe((pokemon) => (this.pokemon = pokemon));
         } else {
         }
     }

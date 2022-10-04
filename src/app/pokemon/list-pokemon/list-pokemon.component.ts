@@ -1,6 +1,6 @@
 import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
-import { Pokemon } from "../pokemon";
+import { Pokemon } from "../../shared/type/pokemon";
 import { PokemonService } from "../pokemon.service";
 
 @Component({
@@ -18,7 +18,9 @@ export class ListPokemonComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.pokemonList = this.pokemonService.getPokemonList();
+        this.pokemonService
+            .getPokemonList()
+            .subscribe((pokemonList) => (this.pokemonList = pokemonList));
     }
 
     goToPokemon(pokemon: Pokemon) {

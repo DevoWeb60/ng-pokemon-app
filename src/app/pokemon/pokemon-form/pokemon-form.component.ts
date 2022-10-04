@@ -1,6 +1,6 @@
 import { PokemonService } from "./../pokemon.service";
 import { Component, Input, OnInit } from "@angular/core";
-import { Pokemon } from "../pokemon";
+import { Pokemon } from "../../shared/type/pokemon";
 import { Router } from "@angular/router";
 
 @Component({
@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 export class PokemonFormComponent implements OnInit {
     @Input() pokemon: Pokemon;
     types: string[];
+    isAddForm: boolean;
 
     constructor(
         private pokemonService: PokemonService,
@@ -19,6 +20,7 @@ export class PokemonFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.types = this.pokemonService.getPokemonTypeList();
+        this.isAddForm = this.router.url.includes("add");
     }
 
     hasType(type: string): boolean {
@@ -46,7 +48,21 @@ export class PokemonFormComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log("Submit form");
-        this.router.navigate(["/pokemon", this.pokemon.id]);
+        if (this.isAddForm) {
+            this.pokemon.picture = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.pokemon.picture.padStart(
+                3,
+                "0"
+            )}.png`;
+            this.pokemonService.addPokemon(this.pokemon).subscribe(
+                (pokemon: Pokemon) =>
+                    this.router.navigate(["/pokemon", pokemon.id]),
+                (error) => console.log(error)
+            );
+        } else {
+            this.pokemonService.updatePokemon(this.pokemon).subscribe(
+                () => this.router.navigate(["/pokemon", this.pokemon.id]),
+                (error) => console.log(error)
+            );
+        }
     }
 }

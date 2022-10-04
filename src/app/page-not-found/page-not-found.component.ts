@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { POKEMONS } from "../pokemon/mock-pokemon-list";
+import { POKEMONS } from "../shared/json/mock-pokemon-list";
 
 @Component({
     selector: "app-page-not-found",

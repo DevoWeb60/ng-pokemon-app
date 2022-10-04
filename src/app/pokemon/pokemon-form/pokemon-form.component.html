@@ -25,6 +25,36 @@
                     </div>
                       
                 </div>
+                           <!-- Pokemon picture -->
+                <div *ngIf="isAddForm" class="form-group">
+                    <label for="picture">Image</label>
+                    <input
+                        type="text"
+                        name="picture"
+                        id="picture"
+                        required
+                        pattern="^[0-9]{1,3}$"
+                        [(ngModel)]="pokemon.picture"
+                        #picture="ngModel"
+                    />
+                    <p
+                        *ngIf="+picture.value > 0 && +picture.value < 906"
+                        class="center"
+                    >
+                        <img
+                            *ngIf="pokemon"
+                            src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/{{
+                                picture.value.padStart(3, '0')
+                            }}.png"
+                        />
+                    </p>
+                    <div
+                        [hidden]="picture.valid || picture.pristine"
+                        class="card-panel red accent-1"
+                    >
+                        L'image est requise (entre 1 et 905 inclus).
+                    </div>
+                </div>
                            <!-- Pokemon hp -->
                   
                 <div class="form-group">

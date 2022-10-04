@@ -1,4 +1,4 @@
-import { Pokemon } from "./pokemon";
+import { Pokemon } from "../type/pokemon";
 export const POKEMONS: Pokemon[] = [
     {
         id: 1,
