@@ -7,18 +7,19 @@ import {Component, OnInit} from '@angular/core';
 })
 export class CounterComponent implements OnInit {
     count: number = 0;
+    value: number = 10;
     interval: any;
 
     ngOnInit(): void {
     }
 
-    increment() {
-        this.count++
+    increment(value = this.value) {
+        this.count += value
     }
 
-    uncrement() {
+    uncrement(value = this.value) {
         if(this.count > 0){
-            this.count--
+            this.count -= value
         }else{
             alert('Le compteur ne peut pas être négatif')
         }
