@@ -1,0 +1,10 @@
+<div class="container">
+    <p>Compteur : {{ count }}</p>
+    <div class="button-container">
+        <button (click)="increment()">Incrémenté</button>
+        <button (click)="autoIncrement()" *ngIf="!this.interval">Incrémentation automatique</button>
+        <button (click)="stopAutoIncrement()" *ngIf="this.interval">Stop incrémentation</button>
+        <button (click)="uncrement()">Décrémenté</button>
+    </div>
+</div>
+
